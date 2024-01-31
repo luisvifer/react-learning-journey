@@ -3,23 +3,19 @@ import './App.css'
 import confetti from 'canvas-confetti'
 import { Square } from './components/Square'
 import { TURNS } from './constants'
-import { checkWinnerFrom,checkEndGame } from './logic/board'
+import { checkWinnerFrom, checkEndGame } from './logic/board'
 import { WinnerModal } from './components/WinnerModal'
 import { Turn } from './components/Turn'
 import { loadBoardGameFromStorage, loadTurnFromStorage, saveBoardGameToStorage, saveTurnToStorage, resetBoardAndTurnFromStorage } from './logic/storage/index'
 
-
-
-
-
-function App() {
-  //const [board, setBoard] = useState(['x','x','x','o','x','o','o','x','x'])
-  const [board, setBoard] = useState(()=>{
+function App () {
+  // const [board, setBoard] = useState(['x','x','x','o','x','o','o','x','x'])
+  const [board, setBoard] = useState(() => {
     const boardFromStorage = loadBoardGameFromStorage()
     return boardFromStorage ?? Array(9).fill(null)
   })
 
-  const [turn, setTurn] = useState(()=>{
+  const [turn, setTurn] = useState(() => {
     const turnFromStorage = loadTurnFromStorage()
     return turnFromStorage ?? TURNS.X
   })
@@ -34,18 +30,14 @@ function App() {
     resetBoardAndTurnFromStorage()
   }
 
-
-
-
-
   const updateBoard = (index) => {
     if (board[index] || winner) return
-    const newTurn = turn == TURNS.X ? TURNS.O : TURNS.X
-    const newBoard = [...board] //spread operator parecido al rest operator
+    const newTurn = turn === TURNS.X ? TURNS.O : TURNS.X
+    const newBoard = [...board] // spread operator parecido al rest operator
     newBoard[index] = turn
     setBoard(newBoard)
     setTurn(newTurn)
-    //save match
+    // save match
     saveBoardGameToStorage(newBoard)
     saveTurnToStorage(newTurn)
 
@@ -56,32 +48,29 @@ function App() {
     } else if (checkEndGame(newBoard)) {
       setWinner(false)
     }
-
   }
 
-
-
   return (
-    <main className="board">
+    <main className='board'>
       <h1>Tic Tac Toe</h1>
       <button onClick={resetGame}> Reset del juego</button>
-      <section className="game">
+      <section className='game'>
         {
           board.map((_, index) => {
             return (
               <Square
                 key={index}
                 index={index}
-                updateBoard={updateBoard}>
+                updateBoard={updateBoard}
+              >
                 {board[index]}
               </Square>
             )
-
           })
         }
       </section>
-        <Turn turn={turn}></Turn>
-        <WinnerModal winner={winner} resetGame={resetGame}/>
+      <Turn turn={turn} />
+      <WinnerModal winner={winner} resetGame={resetGame} />
     </main>
   )
 }
