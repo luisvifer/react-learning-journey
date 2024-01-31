@@ -6,7 +6,7 @@ import { TURNS } from './constants'
 import { checkWinnerFrom,checkEndGame } from './logic/board'
 import { WinnerModal } from './components/WinnerModal'
 import { Turn } from './components/Turn'
-import { loadBoardGameFromStorage, loadTurnFromStorage, saveBoardGameToStorage, saveTurnToStorage, resetBoardAndTurnFromStorage } from './logic/persistence'
+import { loadBoardGameFromStorage, loadTurnFromStorage, saveBoardGameToStorage, saveTurnToStorage, resetBoardAndTurnFromStorage } from './logic/storage/index'
 
 
 
