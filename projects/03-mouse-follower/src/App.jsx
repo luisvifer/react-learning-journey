@@ -1,8 +1,11 @@
 import './App.css'
+import { FollowMouse } from './components/FollowMouse'
 
 function App () {
   return (
-    <h3>Projecto 3</h3>
+    <main>
+      <FollowMouse />
+    </main>
   )
 }
 
