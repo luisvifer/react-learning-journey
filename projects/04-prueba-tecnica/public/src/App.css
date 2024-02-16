@@ -1,0 +1,29 @@
+/*Este main sin la sección permite tener centrada la información*/
+main {
+    display: flex;
+    flex-direction: column;
+    /*justify-content: center;*/
+    place-items: center;
+    max-width: 800px;
+    margin:  0 auto;
+    font-family: system-ui;
+}
+/*Con esta sección se consigue ver en la misma linea la imagen y el texto*/
+section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+    margin-bottom: 10px;
+}
+
+
+section img {
+    max-width: 320px ;
+    height: auto;
+}
+
+.error {
+    color: red;
+
+}
