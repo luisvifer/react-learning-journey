@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { getPartialImageUrlFromFact } from '../services/facts'
+import { getComposedImageUrlFromPartial, getPartialImageUrlFromFact } from '../services/facts'
 
 export function useCatImage ({ fact }) {
   const [imageData, setImageData] = useState({ imageUrl: null, loading: false, error: null })
@@ -16,7 +16,7 @@ export function useCatImage ({ fact }) {
     // const thirdWords = fact.split(' ',3).join(' ')
 
     getPartialImageUrlFromFact(firstWord)
-      .then(imageUrl => setImageData({ imageUrl, loading: false, error: null }))
+      .then(imageUrl => setImageData({ imageUrl: getComposedImageUrlFromPartial(imageUrl), loading: false, error: null }))
       .catch(error => setImageData({ imageUrl: imageData.imageUrl, loading: false, error }))
 
     return () => {

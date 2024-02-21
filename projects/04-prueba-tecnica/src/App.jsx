@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 import './App.css'
-import { getComposedImageUrlFromPartial } from './services/facts'
 import { useCatImage } from './hooks/useCatImg'
 import { useCatFact } from './hooks/useCatFact'
+import { Otro } from './components/Otro'
 
 export function App () {
   const [factError, setFactError] = useState()
@@ -10,23 +10,16 @@ export function App () {
   const { imageData } = useCatImage({ fact: factData.fact })
 
   useEffect(() => {
-    if (imageData.error) {
-      setFactError(imageData.error) // Asume que imageUrl contiene una propiedad de error en caso de fallo
-    }
-  }, [imageData.error])
-
-  useEffect(() => {
     if (factData.error) {
       setFactError(factData.error)
     }
-  }, [imageData.error])
+    if (imageData.error) {
+      setFactError(imageData.error) // Asume que imageUrl contiene una propiedad de error en caso de fallo
+    }
+  }, [imageData.error, imageData.error])
 
   const handleClick = async () => {
     refreshRandomFact()
-  }
-
-  const composedUrl = () => {
-    return getComposedImageUrlFromPartial(imageData.imageUrl)
   }
 
   return (
@@ -37,9 +30,13 @@ export function App () {
       </section>
       <section>
         {factData.fact && <p>{factData.fact}</p>}
-        {imageData.imageUrl && <img src={`${composedUrl()}`} alt={`Cat image extracted using the first word of cat facts:${factData.fact}`} />}
+        {imageData.imageUrl && <img className='random-img' src={imageData.imageUrl} alt={`Cat image extracted using the first word of cat facts:${factData.fact}`} />}
+
       </section>
       {factError && <section className='error'><p>{factError}</p></section>}
+      <section>
+        <Otro />
+      </section>
     </main>
   )
 }
